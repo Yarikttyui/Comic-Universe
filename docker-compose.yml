@@ -1,0 +1,139 @@
+﻿services:
+  mysql:
+    image: mysql:8.0
+    container_name: comic-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: comic_universe
+      MYSQL_USER: comic_user
+      MYSQL_PASSWORD: 12345678
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p12345678"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - comic-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: comic-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - comic-network
+
+  backend:
+    build:
+      context: ./packages/backend
+      dockerfile: Dockerfile
+    container_name: comic-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: comic_universe
+      DB_USER: comic_user
+      DB_PASSWORD: 12345678
+      DB_SYNC: "false"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: comic-universe-jwt-secret-super-secure-2024
+      JWT_REFRESH_SECRET: comic-universe-refresh-secret-super-secure-2024
+      CORS_ORIGIN: http://localhost
+    ports:
+      - "3001:3001"
+    volumes:
+      - backend_uploads:/app/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3001/health',(r)=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+    networks:
+      - comic-network
+
+  web:
+    build:
+      context: ./packages/web
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:3001/api/v1
+        VITE_SOCKET_URL: http://localhost:3001
+    container_name: comic-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./artifacts/android:/app/dist/downloads/android
+      - ./artifacts/desktop:/app/dist/downloads/desktop
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - comic-network
+
+  adminer:
+    image: adminer:latest
+    container_name: comic-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - comic-network
+
+  desktop-builder:
+    build:
+      context: ./packages/desktop
+      dockerfile: Dockerfile
+    image: comic-universe-desktop-builder
+    profiles:
+      - artifacts
+    volumes:
+      - ./artifacts/desktop:/artifacts
+    command: ["sh", "-c", "mkdir -p /artifacts && cp -r /output/. /artifacts/ && ls -la /artifacts"]
+
+  android-builder:
+    build:
+      context: ./android
+      dockerfile: Dockerfile
+    image: comic-universe-android-builder
+    profiles:
+      - artifacts
+    volumes:
+      - ./artifacts/android:/artifacts
+    command: ["sh", "-c", "mkdir -p /artifacts && cp -r /output/. /artifacts/ && ls -la /artifacts"]
+
+volumes:
+  mysql_data:
+  redis_data:
+  backend_uploads:
+
+networks:
+  comic-network:
+    driver: bridge

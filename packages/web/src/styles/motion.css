@@ -1,0 +1,17 @@
+﻿@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.page-hero,
+.card,
+.comic-card,
+.kpi-card,
+.work-rail {
+  animation: fadeIn var(--motion-slow) var(--easing-standard);
+}

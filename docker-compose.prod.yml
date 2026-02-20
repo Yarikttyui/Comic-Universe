@@ -1,0 +1,11 @@
+services:
+  backend:
+    environment:
+      CORS_ORIGIN: https://adskoekoleso.ru
+      NODE_ENV: production
+
+  web:
+    build:
+      args:
+        VITE_API_URL: https://adskoekoleso.ru/api/v1
+        VITE_SOCKET_URL: https://adskoekoleso.ru

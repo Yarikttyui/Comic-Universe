@@ -1,0 +1,12 @@
+{
+    "appId": "com.comicuniverse.app",
+    "appName": "Comic Universe",
+    "webDir": "../web/dist",
+    "server": {
+        "url": "http://localhost",
+        "cleartext": true
+    },
+    "android": {
+        "allowMixedContent": true
+    }
+}

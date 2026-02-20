@@ -1,0 +1,18 @@
+{
+  "name": "@comic-universe/mobile-legacy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Legacy Capacitor wrapper (archived in favor of android/ native app)",
+  "scripts": {
+    "build:web": "cd ../web && npm install && npm run build",
+    "cap:init": "npx cap init 'Comic Universe' com.comicuniverse.app --web-dir ../web/dist",
+    "cap:add": "npx cap add android",
+    "cap:sync": "npx cap sync android",
+    "build:apk": "cd ../../android && gradlew.bat assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "^5.0.0",
+    "@capacitor/core": "^5.0.0",
+    "@capacitor/cli": "^5.0.0"
+  }
+}
