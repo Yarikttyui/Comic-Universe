@@ -1,0 +1,68 @@
+export const theme = {
+  colors: {
+    background: '#f6efe2',
+    surface: '#fff7ea',
+    surfaceLight: '#efe5d4',
+    primary: '#d6452a',
+    primaryLight: '#f06a52',
+    accentGold: '#f3b700',
+    accentMint: '#1c9a8a',
+    accentBlue: '#1f6feb',
+    accentViolet: '#4b3f72',
+    text: '#221b14',
+    textSecondary: '#4f463c',
+    textMuted: '#776b5d',
+    border: '#221b14',
+    error: '#d6452a',
+    success: '#1c9a8a',
+    warning: '#f3b700',
+  },
+  fonts: {
+    regular: 'System',
+    medium: 'System',
+    semiBold: 'System',
+    bold: 'System',
+    display: 'System',
+    displaySemiBold: 'System',
+  },
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
+    xl: 32,
+    xxl: 48,
+  },
+  borderRadius: {
+    sm: 8,
+    md: 12,
+    lg: 16,
+    xl: 24,
+    full: 9999,
+  },
+  shadows: {
+    small: {
+      shadowColor: '#1b140f',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 3.84,
+      elevation: 2,
+    },
+    medium: {
+      shadowColor: '#1b140f',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.25,
+      shadowRadius: 4.65,
+      elevation: 4,
+    },
+    large: {
+      shadowColor: '#d6452a',
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: 0.2,
+      shadowRadius: 10,
+      elevation: 8,
+    },
+  },
+};
+
+export type Theme = typeof theme;

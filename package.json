@@ -1,0 +1,35 @@
+﻿{
+    "name":  "comic-universe",
+    "version":  "1.0.0",
+    "description":  "Платформа интерактивных комиксов - Web, Mobile, Desktop",
+    "private":  true,
+    "workspaces":  [
+                       "packages/*"
+                   ],
+    "scripts":  {
+                    "backend":  "npm run dev --workspace=@comic-universe/backend",
+                    "web":  "npm run dev --workspace=@comic-universe/web",
+                    "desktop":  "npm run start --workspace=packages/desktop",
+                    "mobile":  "npm run android:build",
+                    "android:build":  "cd android && gradlew.bat assembleDebug",
+                    "mobile:legacy:web":  "npm run build:web --workspace=packages/mobile",
+                    "mobile:legacy:apk":  "npm run build:apk --workspace=packages/mobile",
+                    "build:web":  "npm run build --workspace=@comic-universe/web",
+                    "build:desktop":  "npm run build --workspace=packages/desktop",
+                    "build:backend":  "npm run build --workspace=@comic-universe/backend",
+                    "import:comics": "npm run import:comics --workspace=@comic-universe/backend",
+                    "import:comics:dist": "npm run import:comics:dist --workspace=@comic-universe/backend",
+                    "install:all":  "npm install",
+                    "dev":  "concurrently \"npm run backend\" \"npm run web\"",
+                    "docker:up":  "docker compose up --build",
+                    "docker:full":  "docker compose --profile artifacts up --build",
+                    "docker:down":  "docker compose down -v"
+                },
+    "devDependencies":  {
+                            "concurrently":  "^8.2.2",
+                            "typescript":  "^5.3.3"
+                        },
+    "engines":  {
+                    "node":  "\u003e=18.0.0"
+                }
+}

@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+out/
+*.exe
+*.dmg
+*.AppImage
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+
+# Temporary
+tmp/
+temp/
+.cache/
+
+# Mobile
+packages/mobile/android/.gradle/
+packages/mobile/android/app/build/
+packages/mobile/ios/Pods/
+packages/mobile/ios/build/
+
+# Desktop
+packages/desktop/release/
+
+# Android
+comics/.gradle/
+comics/app/build/
+comics/build/
+
+# Artifacts
+artifacts/
+
+# Temp imports
+temp_import/
+temp_pptx_extract/

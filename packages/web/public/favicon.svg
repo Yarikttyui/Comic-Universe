@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Comic Universe">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffe067"/>
+      <stop offset="55%" stop-color="#ff6c42"/>
+      <stop offset="100%" stop-color="#2d7bff"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="108" height="108" rx="20" fill="#fff9e1" stroke="#111" stroke-width="6"/>
+  <path d="M20 72L56 18H108L72 72H20Z" fill="url(#bg)" stroke="#111" stroke-width="4"/>
+  <path d="M24 80h76v20H58l-14 10v-10H24z" fill="#fff9e1" stroke="#111" stroke-width="4"/>
+  <path d="M45 86l10-16h9l-8 11h10l-15 21 4-14h-10z" fill="#111"/>
+  <circle cx="80" cy="90" r="4" fill="#111"/>
+  <circle cx="92" cy="90" r="4" fill="#111"/>
+</svg>

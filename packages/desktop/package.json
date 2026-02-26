@@ -1,0 +1,67 @@
+{
+  "name": "comic-universe-desktop",
+  "version": "1.0.0",
+  "description": "Comic Universe Desktop App",
+  "author": "Comic Universe",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win nsis --x64 --config.win.signAndEditExecutable=false",
+    "build:portable": "electron-builder --win portable --x64 --config.win.signAndEditExecutable=false",
+    "build:linux": "electron-builder --linux AppImage --x64"
+  },
+  "build": {
+    "appId": "com.comicuniverse.desktop",
+    "productName": "Comic Universe",
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Comic Universe",
+      "artifactName": "ComicUniverse-Setup-${version}.exe"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "portable": {
+      "artifactName": "Comic Universe.exe"
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://adskoekoleso.ru/downloads/desktop"
+      }
+    ]
+  },
+  "dependencies": {
+    "electron-is-dev": "^2.0.0",
+    "electron-updater": "^6.1.7"
+  },
+  "devDependencies": {
+    "7zip-bin": "^5.2.0",
+    "electron": "28.3.3",
+    "electron-builder": "^24.9.1"
+  }
+}
